@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <math.h>
 
 int _putchar(char c);
 int _isupper(int c);

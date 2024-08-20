@@ -52,6 +52,15 @@ int power_of_ten_from_digits(int n)
 void print_number(int n)
 {
 	int i;
+	int digits_count; 
+	int digits_as_p10;
+
+	if (n == 0)
+	{
+		_putchar('0');
+		_putchar('\n');
+		return;
+	}
 
 	if (n < 0) /* Handle negative numbers Explicitly */
 	{
@@ -59,8 +68,8 @@ void print_number(int n)
 		_putchar('-');
 	}
 
-	int digits_count = count_digits(n);
-	int digits_as_p10 = power_of_ten_from_digits(digits_count);
+	digits_count = count_digits(n);
+	digits_as_p10 = power_of_ten_from_digits(digits_count);
 
 	/*printf("%d digits count:\n", digits_count);*/ /* Debugging */
 	/*printf("%d digits as p10:\n", digits_as_p10);*/ /* Debugging */

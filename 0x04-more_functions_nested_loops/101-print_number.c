@@ -5,6 +5,9 @@
  *
  * @n: Given number.
  *
+ * Todo:
+ * Make the solution better by using recursive functions ;)
+ *
  * Return: Number of digits
  */
 
@@ -61,7 +64,6 @@ void print_number(int n)
 		_putchar('0');
 		return;
 	}
-
 	if (n < 0) /* Handle negative numbers Explicitly */
 	{
 		_putchar('-');
@@ -74,22 +76,20 @@ void print_number(int n)
 	digits_as_p10 = power_of_ten_from_digits(digits_count);
 
 	/* Debugging */
-	/*printf("%d digits count:\n", digits_count);  */
+	/*printf("%d digits count:\n", digits_count);*/
 	/*printf("%d digits as p10:\n", digits_as_p10);*/
-
-
-	/**
-	 * We don't want to have 0 as a result
-	 * when printing.
-	 * Example: (456 -> 4.56 and not 0.456).
-	 * that's why we divide digits_as_p10 by 10.
-	 */
 
 	for (i = 0; i < digits_count && digits_as_p10 > 1; i++)
 	{
-		if (digits_as_p10 == 1000000000)
+		if (digits_as_p10 == 1000000000 && digits_count == 10)
 			_putchar((num / digits_as_p10) % 10 + '0');
-
+		/**
+		 * We don't want to have 0 as a result
+		 * when printing.
+		 * Example: (456 -> 4.56 and not 0.456).
+		 * that's why we divide digits_as_p10 by 10.
+		 * Except for the 10 digit number Since there is a limit for int.
+		 */
 		_putchar((num / (digits_as_p10 /= 10)) % 10 + '0');
 	}
 }

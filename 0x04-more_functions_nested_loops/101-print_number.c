@@ -8,7 +8,7 @@
  * Return: Number of digits
  */
 
-int count_digits(int n)
+int count_digits(unsigned int n)
 {
 	int digits = 0; /* Number of digits */
 
@@ -35,7 +35,7 @@ int power_of_ten_from_digits(int n)
 	int i;
 	int power_digits = 1;
 
-	for (i = 0; i < n; i++)
+	for (i = 0; i < n && power_digits < 1000000000; i++)
 		power_digits *= 10;
 
 	return (power_digits);
@@ -54,6 +54,7 @@ void print_number(int n)
 	int i;
 	int digits_count;
 	int digits_as_p10;
+	unsigned int num;
 
 	if (n == 0)
 	{
@@ -63,15 +64,18 @@ void print_number(int n)
 
 	if (n < 0) /* Handle negative numbers Explicitly */
 	{
-		n = abs(n);
 		_putchar('-');
+		num = abs(n);
 	}
+	else
+		num = n;
 
-	digits_count = count_digits(n);
+	digits_count = count_digits(num);
 	digits_as_p10 = power_of_ten_from_digits(digits_count);
 
-	/*printf("%d digits count:\n", digits_count);*/ /* Debugging */
-	/*printf("%d digits as p10:\n", digits_as_p10);*/ /* Debugging */
+	/* Debugging */
+	/*printf("%d digits count:\n", digits_count);  */
+	/*printf("%d digits as p10:\n", digits_as_p10);*/
 
 
 	/**
@@ -81,6 +85,11 @@ void print_number(int n)
 	 * that's why we divide digits_as_p10 by 10.
 	 */
 
-	for (i = 0; i < digits_count; i++)
-		_putchar((n / (digits_as_p10 /= 10)) % 10 + '0');
+	for (i = 0; i < digits_count && digits_as_p10 > 1; i++)
+	{
+		if (digits_as_p10 == 1000000000)
+			_putchar((num / digits_as_p10) % 10 + '0');
+
+		_putchar((num / (digits_as_p10 /= 10)) % 10 + '0');
+	}
 }

@@ -52,13 +52,12 @@ int power_of_ten_from_digits(int n)
 void print_number(int n)
 {
 	int i;
-	int digits_count; 
+	int digits_count;
 	int digits_as_p10;
 
 	if (n == 0)
 	{
 		_putchar('0');
-		_putchar('\n');
 		return;
 	}
 
@@ -83,9 +82,5 @@ void print_number(int n)
 	 */
 
 	for (i = 0; i < digits_count; i++)
-	{
 		_putchar((n / (digits_as_p10 /= 10)) % 10 + '0');
-	}
-	_putchar('\n');
-
 }

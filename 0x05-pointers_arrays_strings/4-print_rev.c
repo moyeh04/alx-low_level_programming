@@ -12,8 +12,9 @@
 void print_rev(char *s)
 {
 	int i;
-	
-	for(i = strlen(s); i >= 0; i--) 
+	int len = strlen(s); /* This includes the null character */
+
+	for (i = len - 1; i >= 0; i--)
 		_putchar(s[i]);
 
 	_putchar('\n');

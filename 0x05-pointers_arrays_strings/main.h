@@ -14,6 +14,7 @@ void print_rev(char *s);
 void rev_string(char *s);
 void puts2(char *s);
 void puts_half(char *s);
+void print_array(int *a, int n);
 
 #endif /*X05HEASERS*/
 

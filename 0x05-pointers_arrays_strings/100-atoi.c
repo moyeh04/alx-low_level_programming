@@ -12,7 +12,11 @@ int _atoi(char *s)
 {
 	int i;
 	int sign = +1;
-	int number;
+	unsigned int number = 0;
+	/*
+	 * Initazlizing number to prevent contigous memory
+	 * if the function is called more than once
+	 */
 	int count = 0; /* Checks if the string has any integers */
 	int base = 10;
 
@@ -27,14 +31,6 @@ int _atoi(char *s)
 		else if (s[i] >= '0' && s[i] <= '9')
 		{
 			count++;
-
-			if (count == 1)
-				number = 0;
-			/*
-			 * Initazlizing number to prevent contigous memory
-			 * if the function is called more than once
-			 */
-
 			number = number * base + (int)(s[i] - '0');
 		}
 	}

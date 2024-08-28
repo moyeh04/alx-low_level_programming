@@ -1,14 +1,17 @@
 #include "main.h"
 
 /**
- * crack_me - A function that would generate random passwords to crack the given
- * 101-crackme
+ * crack_me - A function that would generate random passwords
+ * to crack the given 101-crackme
  *
  * Description:
  * to tackle this we used some reverse engineering and decompiled the binary
- * file to study the behaviour of the crackme file and upon that we are going to
- * use the key-gen techinque to generate a random valid password that would work
- * on it.
+ * file to study the behaviour of the crackme file and upon
+ * that we are going to use the key-gen techinque
+ * to generate a random valid password that would work on it.
+ *
+ * Todo:
+ * Make the last character also alphanumeric.
  *
  * Return: Nothing(void...)
  */
@@ -17,32 +20,40 @@ void crack_me(void)
 {
 	int sum_of_ASCII = 0;
 	int ASCII_range = 62; /* Number of alphanumeric characters */
+	int max_range = 122; /* To count for the biggest ASCII value 'z' 122 */
 	int rev_eng_sum_of_ASCII_password = 2772;
-	int limit = rev_eng_sum_of_ASCII_password - ASCII_range;
+	int soap = rev_eng_sum_of_ASCII_password; /* Just a shorter version */
+	int limit = soap - max_range;
+	int next_sum;
+	int rand_num;
 
-	
 	char ASCII_password;
-
+	char final_char;
 
 	srand(time(NULL));
 
 	while (sum_of_ASCII <= limit)
 	{
-		int rand_num = rand() % ASCII_range;
+		rand_num = rand() % ASCII_range;
 
 		if (rand_num < 10)
 			ASCII_password = '0' + rand_num;
-		else if (rand_num < 36) 
+		else if (rand_num < 36)
 			ASCII_password = 'A' + (rand_num - 10);
-		else 
+		else
 			ASCII_password = 'a' + (rand_num - 36);
-		
+
+		next_sum = sum_of_ASCII + ASCII_password;
+
+		if (next_sum > soap - '0') /* To avoid printing control characters */
+			continue;
+
 		sum_of_ASCII += ASCII_password;
-
 		putchar(ASCII_password);
-	}
-	putchar(rev_eng_sum_of_ASCII_password - sum_of_ASCII);
 
+	}
+	final_char = (soap - sum_of_ASCII);
+	putchar(final_char);
 }
 
 /**

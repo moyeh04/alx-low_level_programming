@@ -14,13 +14,9 @@ int separators(char *str)
 			*str == ';' || *str == '.' || *str == '!' || *str == '?' ||
 			*str == '"' || *str == '(' || *str == ')' || *str == '{' ||
 			*str == '}')
-	{
 		return (1);
-	}
 	else
-	{
 		return (0);
-	}
 }
 
 /**
@@ -43,12 +39,14 @@ char *cap_string(char *str)
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (separators(&str[i]))
+		if (str[i] >= 'a' && str[i] <= 'z')
 		{
-			if (str[i + 1] >= 'a' && str[i + 1] <= 'z')
-				str[i + 1] -= corresponding;
-		}
+			if (i == 0)
+				str[i] -= corresponding; /* To handle the first character explictly */
 
+			else if (separators(&str[i - 1]))
+				str[i] -= corresponding;
+		}
 	}
 
 	return (str);

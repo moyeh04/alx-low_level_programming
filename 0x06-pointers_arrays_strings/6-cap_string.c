@@ -10,13 +10,16 @@
 
 int separators(char *str)
 {
-	if (*str == ' ' || *str ==	'\t' || *str == '\n' || *str == ',' ||
-			*str == ';' || *str == '.' || *str == '!' || *str == '?' ||
-			*str == '"' || *str == '(' || *str == ')' || *str == '{' ||
-			*str == '}')
-		return (1);
-	else
-		return (0);
+	int i;
+	char separators[14] = {' ', '\t', '\n', ',', ';', '.', '!', '?', '\"',
+		'(', ')', '{', '}'};
+
+	for (i = 0; i < 14; i++)
+	{
+		if (*str == separators[i])
+			return (1);
+	}
+	return (0);
 }
 
 /**
@@ -31,7 +34,7 @@ char *cap_string(char *str)
 {
 
 	int i;
-	int corresponding = 32;
+	int corresponding = 'a' - 'A';
 	/**
 	 * Difference between small letter and it's corresponding
 	 * capital letter value in ASCII table

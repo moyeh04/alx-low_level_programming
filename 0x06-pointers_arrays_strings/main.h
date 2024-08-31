@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int _putchar(char c);
 char *_strcat(char *dest, char *src);
@@ -15,5 +16,6 @@ char *string_toupper(char *);
 char *cap_string(char *);
 char *leet(char *);
 char *rot13(char *);
+void print_number(int n);
 
 #endif /* X06HEADERS */

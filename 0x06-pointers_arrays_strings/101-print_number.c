@@ -17,7 +17,7 @@ void print_number(int n)
 
 	num = n;
 	/**
-	 * Initially, 'num' is set to 'n'. If 'n' is negative, 
+	 * Initially, 'num' is set to 'n'. If 'n' is negative,
 	 * 'num' will be corrected after the sign check.
 	 * 'n' itself remains unchanged, so 'num' is safely updated.
 	 * Until then, 'num' holds the raw value of 'n' (positive or negative),

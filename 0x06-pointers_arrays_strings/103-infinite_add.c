@@ -61,6 +61,8 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		sml_num = num2;
 		big_num = num1;
 	}
+	if ((long  unsigned int)size_r <= strlen(n1) || (long  unsigned int)size_r <= strlen(n2))
+		return (0);
 
 	for (i = 0; sml_num[i] != '\0'; i++)
 	{

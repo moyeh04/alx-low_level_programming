@@ -41,13 +41,12 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int i;
 	int carry = 0;
-	char num1[strlen(n1)+1];
-	char num2[strlen(n2)+1];
+	char num1[1000];
+	char num2[1000];
 	char *sml_num;
 	char *big_num;
 
 	strcpy(num1, n1);
-	printf("%s\n", num1);
 	strcpy(num2, n2);
 	rev_string(num1);
 	rev_string(num2);
@@ -63,61 +62,42 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		big_num = num1;
 	}
 
-	printf("%s\n", sml_num);
 	for (i = 0; sml_num[i] != '\0'; i++)
 	{
-		printf("i:%d\n", i);
 			r[i] = (((num1[i] - '0') + (num2[i] - '0') + carry) % 10) + '0';
-			printf("r of [%d]:%c\n", i, r[i]);
-			printf("carry of [%d]:%d\n", i, carry);
 			
 			if (((num1[i] - '0') + (num2[i] - '0') + carry) > 9)
 				carry = 1;
 			else
 				carry = 0;
 	}
-	for (; big_num[i] != '\0'; i++)
+	for (; big_num[i] != '\0'; i++) /* The padding loop */
 	{
 		if (carry == 1)
-		{
-			r[i] += ((big_num[i] - '0') + carry) + '0';
-		}
+			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
 		else if (carry == 0)
-		{
-			r[i] += ((big_num[i] - '0') + carry) + '0';
-		}
-		r[i] = big_num[i];
+			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
+
+		if (((big_num[i] - '0') + carry) > 9)
+				carry = 1;
+			else
+				carry = 0;
+	}
+
+	/* residual carry handle, and null terminator*/
+	if (carry == 0)
+		r[i] = '\0';
+	else if (carry == 1)
+	{
+		r[i] = '1';
+		r[i + 1] = '\0';
 	}
 	
 
-	rev_string(num1);
-	rev_string(num2);
 	rev_string(r);
 
-	if ((strlen(r) + 1) > size_r)
+	if ((strlen(r) + 1) > (long  unsigned int)size_r)
 		return (0);
 
 	return (r);
-}
-
-
-int main(void)
-{
-	char *n;
-	char *m;
-	char r2[15];
-	char *res;
-
-	n = "999999989";
-	m = "1";
-	res = infinite_add(n, m, r2, 15);
-	if (res == 0)
-	{
-		printf("Error\n");
-	}
-	else
-	{
-		printf("%s + %s = %s\n", n, m, res);
-	}
-	return (0);
 }

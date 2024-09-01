@@ -39,10 +39,7 @@ void handle_carry(char *r, char *big_num, int i, int carry)
 {
 	for (; big_num[i] != '\0'; i++) /* The padding loop */
 	{
-		if (carry == 1)
-			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
-		else if (carry == 0)
-			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
+		r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
 
 		if (((big_num[i] - '0') + carry) > 9)
 			carry = 1;

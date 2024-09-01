@@ -14,7 +14,7 @@ void rev_string(char *rev)
 	int j = strlen(rev) - 1;
 	char temp;
 
-	while(i < j)
+	while (i < j)
 	{
 		temp = rev[i];
 		rev[i] = rev[j];
@@ -61,26 +61,15 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		sml_num = num2;
 		big_num = num1;
 	}
-	if ((long  unsigned int)size_r <= strlen(n1) || (long  unsigned int)size_r <= strlen(n2))
+	if ((unsigned long int)size_r <= strlen(n1) ||
+			(unsigned long int)size_r <= strlen(n2))
 		return (0);
 
 	for (i = 0; sml_num[i] != '\0'; i++)
 	{
 			r[i] = (((num1[i] - '0') + (num2[i] - '0') + carry) % 10) + '0';
-			
-			if (((num1[i] - '0') + (num2[i] - '0') + carry) > 9)
-				carry = 1;
-			else
-				carry = 0;
-	}
-	for (; big_num[i] != '\0'; i++) /* The padding loop */
-	{
-		if (carry == 1)
-			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
-		else if (carry == 0)
-			r[i] = (((big_num[i] - '0') + carry) % 10) + '0';
 
-		if (((big_num[i] - '0') + carry) > 9)
+			if (((num1[i] - '0') + (num2[i] - '0') + carry) > 9)
 				carry = 1;
 			else
 				carry = 0;
@@ -94,11 +83,11 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		r[i] = '1';
 		r[i + 1] = '\0';
 	}
-	
+
 
 	rev_string(r);
 
-	if ((strlen(r) + 1) > (long  unsigned int)size_r)
+	if ((strlen(r) + 1) > (unsigned long int)size_r)
 		return (0);
 
 	return (r);

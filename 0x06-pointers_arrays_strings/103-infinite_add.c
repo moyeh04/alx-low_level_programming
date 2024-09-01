@@ -62,17 +62,23 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		printf("i:%d\n", i);
 			r[i] = (((num1[i] - '0') + (num2[i] - '0') + carry) % 10) + '0';
 			printf("r of [%d]:%c\n", i, r[i]);
+			printf("carry of [%d]:%d\n", i, carry);
 			
-			if (((num1[i] - '0') + (num2[i] - '0')) > 9)
+			if (((num1[i] - '0') + (num2[i] - '0') + carry) > 9)
 				carry = 1;
 			else
 				carry = 0;
 	}
+	printf("r of [%d]:%d\n", i, strlen(r));
+	if (carry == 1)
+		r[i] = 1 + '0';
 
 	rev_string(num1);
 	rev_string(num2);
 	rev_string(r);
+			printf("r of [%d]:%c\n", 11, r[10]);
 	printf("r of [%d]:%s\n", i, r);
+	printf("r of [%d]:%d\n", i, strlen(r));
 
 	if ((strlen(r) + 1) > size_r)
 		return (0);
@@ -89,7 +95,7 @@ int main(void)
 	char *res;
 
 	n = "999999989";
-	m = "000000000";
+	m = "111111111";
 	res = infinite_add(n, m, r2, 15);
 	if (res == 0)
 	{

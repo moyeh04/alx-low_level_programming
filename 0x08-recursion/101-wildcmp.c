@@ -10,13 +10,20 @@
  * Explanation:
  * The special character * can replace any string (including an empty string).
  *
- * Why it wouldn't go into infinite calls:
- * - When `*` is encountered in s2,
- *   the `||` operator evaluates both recursive calls simultaneously:
- *   - `wildcmp(s1 + 1, s2)` and `wildcmp(s1, s2 + 1)`.
- * - This means the function tests both paths at the same time. If either call
- *   returns 1, the function will return immediately,
- *   preventing infinite recursion, It's like a short-circuit evaluation.
+ * Why it handles '*' matching:
+ * - When '*' is encountered in s2, the function tries two paths:
+ * 1. First evaluates wildcmp(s1 + 1, s2) completely
+ * (trying to match current '*' with current character)
+ * 2. Only if that fails (returns 0), then it tries wildcmp(s1, s2 + 1)
+ * (moving past the '*' to try matching the next pattern)
+ * - This is NOT simultaneous evaluation, but sequential due to
+ * || short-circuit behavior
+ * - The recursion is controlled by proper base cases and the fact that
+ * we're either consuming s1 or s2 in each recursive call
+ *
+ * Debugging Statements:
+ * printf("Comparing s1: '%s' with s2: '%s'\n", s1, s2);
+ * printf("Taking * paths with s1: '%s' s2: '%s'\n", s1, s2);
  *
  * Return: 1 if the strings are identical, 0 otherwise.
  */
@@ -26,15 +33,17 @@ int wildcmp(char *s1, char *s2)
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 
+	if (*s1 == '\0' && *s2 == '*')  /* To prevent infinite recursion */
+		return (wildcmp(s1, s2 + 1));
+
 	if (*s1 == *s2)
 		return (wildcmp((s1 + 1), (s2 + 1)));
-
 	if (*s2 == '*')
 	{
 		if (s2[1] == '*')
 			return (wildcmp(s1, (s2 + 1)));
 
-		if (wildcmp((s1 + 1), s2) || wildcmp(s1, (s2 + 1)))
+		if (wildcmp(s1, (s2 + 1)) || wildcmp((s1 + 1), s2))
 			return (1);
 	}
 
